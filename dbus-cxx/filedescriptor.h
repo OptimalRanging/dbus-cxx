@@ -28,45 +28,19 @@ namespace DBus{
  *
  */
 class FileDescriptor{
-protected:
-	FileDescriptor(){
-		m_fd = -1;
-	}
-
-        explicit FileDescriptor( int fd ){
-            m_fd = fd;
-        }
-
-        explicit FileDescriptor( const FileDescriptor& other ){
-            m_fd = other.m_fd;
-        }
-
 public:
-      typedef DBusCxxPointer<FileDescriptor> pointer;
-
-      static pointer create( int fd ){
-          pointer p = pointer(new FileDescriptor( fd ));
-          return p;
-      }
-
-	~FileDescriptor(){}
-
-/*
-    FileDescriptor& operator=( int fd ){
-		m_fd = fd;
-		return *this;
+	FileDescriptor() : m_fd( -1 ){
 	}
-*/
+
+	static FileDescriptor create( const int& fd ){
+		FileDescriptor _fd;
+		_fd.m_fd = fd;
+		return _fd;
+	}
 
 	int getDescriptor() const{
 		return m_fd;
 	}
-
-/*
-	void setDescriptor( int fd ){
-		m_fd = fd;
-	}
-*/
 
 private:
 	int m_fd;

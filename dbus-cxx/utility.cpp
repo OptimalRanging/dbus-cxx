@@ -19,6 +19,7 @@
 #include <mutex>
 #include <thread>
 #include <iostream>
+#include <iomanip>
 
 #include "utility.h"
 #include "error.h"
@@ -76,16 +77,23 @@ namespace DBus
       const char* log_string ){
     if( level <= log_level ) return;
 
-    char buffer[ 4096 ];
+    // char buffer[ 4096 ];
     const char* stringLevel;
     std::thread::id this_id = std::this_thread::get_id();
 
     SL_LOGLEVEL_TO_STRING( stringLevel, level );
 
-    snprintf( buffer, 4096, "0x%08X %s [%s] - %s(%s:%d)", this_id, logger_name, stringLevel, log_string, 
-      location->file,
-      location->line_number );
-    std::cerr << buffer << std::endl;
+    // snprintf( buffer, 4096, "0x%08X %s [%s] - %s(%s:%d)", this_id, logger_name, stringLevel, log_string, 
+    //   location->file,
+    //   location->line_number );
+    std::cerr
+        << "0x" << std::setw( 8 ) << std::setfill( '0' ) << std::hex << this_id
+        << ' ' << logger_name
+        << " [" << stringLevel << ']'
+        << " - " << log_string
+        << '(' << location->file << ':' << location->line_number << ')'
+        << std::endl;
+    // std::cerr << buffer << std::endl;
   }
 
   void setLogLevel( const enum SL_LogLevel level ){

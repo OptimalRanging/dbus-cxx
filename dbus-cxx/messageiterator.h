@@ -237,7 +237,7 @@ namespace DBus
         operator long int();
         operator unsigned long int();
       #endif
-      operator FileDescriptor::pointer();
+      operator FileDescriptor();
         
       template <typename T>
       operator std::vector<T>() {
@@ -269,7 +269,7 @@ namespace DBus
       int64_t     get_int64();
       double      get_double();
       const char* get_string();
-      FileDescriptor::pointer get_filedescriptor();
+      FileDescriptor get_filedescriptor();
 
       template <typename T>
       void get_array_simple( std::vector<T>& array ) {
